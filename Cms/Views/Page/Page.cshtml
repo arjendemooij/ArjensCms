@@ -1,0 +1,14 @@
+﻿@model Cms.Data.Page
+
+@{
+    ViewBag.Title = "title";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<p>
+@Model.Contents
+    </p>
+
+<p>Last changed by @Model.Author on @Model.DateCreated</p>

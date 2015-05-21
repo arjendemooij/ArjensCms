@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B59B967F-77A5-4AE0-AC61-5EA7897AFF2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cms.EntityData</RootNamespace>
+    <AssemblyName>Cms.EntityData</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="InteractivePreGeneratedViews">
+      <HintPath>..\packages\EFInteractiveViews.1.0.1\lib\net45\InteractivePreGeneratedViews.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CmsObjectContext.cs" />
+    <Compile Include="Data\AccountData.cs" />
+    <Compile Include="Data\BaseData.cs" />
+    <Compile Include="Data\PageData.cs" />
+    <Compile Include="DependencyBootStrapper.cs" />
+    <Compile Include="Migrations\201408280853574_first.cs" />
+    <Compile Include="Migrations\201408280853574_first.Designer.cs">
+      <DependentUpon>201408280853574_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408281606141_account.cs" />
+    <Compile Include="Migrations\201408281606141_account.Designer.cs">
+      <DependentUpon>201408281606141_account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408281607214_Account-required.cs" />
+    <Compile Include="Migrations\201408281607214_Account-required.Designer.cs">
+      <DependentUpon>201408281607214_Account-required.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505202055368_auditing.cs" />
+    <Compile Include="Migrations\201505202055368_auditing.Designer.cs">
+      <DependentUpon>201505202055368_auditing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505210821357_entitychange-field.cs" />
+    <Compile Include="Migrations\201505210821357_entitychange-field.Designer.cs">
+      <DependentUpon>201505210821357_entitychange-field.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505210831555_entitychange-field2.cs" />
+    <Compile Include="Migrations\201505210831555_entitychange-field2.Designer.cs">
+      <DependentUpon>201505210831555_entitychange-field2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505210837458_entitychange-dae.cs" />
+    <Compile Include="Migrations\201505210837458_entitychange-dae.Designer.cs">
+      <DependentUpon>201505210837458_entitychange-dae.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505210839302_entitychange-daterequired.cs" />
+    <Compile Include="Migrations\201505210839302_entitychange-daterequired.Designer.cs">
+      <DependentUpon>201505210839302_entitychange-daterequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PerRequestUnitOfWorkFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arjen.Auditing\Arjen.Auditing.csproj">
+      <Project>{FDF76695-7FE5-42CF-BA9C-7A59C27AC772}</Project>
+      <Name>Arjen.Auditing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arjen.Data\Arjen.Data.csproj">
+      <Project>{5A7D9BB9-B3BD-4A52-8CB1-F053CF290771}</Project>
+      <Name>Arjen.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arjen.IOC\Arjen.IOC.csproj">
+      <Project>{38fc6b05-7de0-47c2-96df-dcfc01df94d3}</Project>
+      <Name>Arjen.IOC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cms.Data\Cms.Data.csproj">
+      <Project>{ec37715a-f4c5-4e8b-b596-38d82d58591b}</Project>
+      <Name>Cms.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201408280853574_first.resx">
+      <DependentUpon>201408280853574_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408281606141_account.resx">
+      <DependentUpon>201408281606141_account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408281607214_Account-required.resx">
+      <DependentUpon>201408281607214_Account-required.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505202055368_auditing.resx">
+      <DependentUpon>201505202055368_auditing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505210821357_entitychange-field.resx">
+      <DependentUpon>201505210821357_entitychange-field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505210831555_entitychange-field2.resx">
+      <DependentUpon>201505210831555_entitychange-field2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505210837458_entitychange-dae.resx">
+      <DependentUpon>201505210837458_entitychange-dae.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505210839302_entitychange-daterequired.resx">
+      <DependentUpon>201505210839302_entitychange-daterequired.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

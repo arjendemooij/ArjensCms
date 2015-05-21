@@ -1,0 +1,18 @@
+﻿@using Cms.Views
+@model Cms.Models.CreateAccountModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+Create account
+@using (Html.BeginForm())
+{
+    <ul>
+        <li>@Html.EditRowFor(model => model.Username)</li>
+        <li>@Html.EditRowFor(model => model.Password)</li>
+
+    </ul>
+    <input type="submit" value="Aanmaken" />
+}

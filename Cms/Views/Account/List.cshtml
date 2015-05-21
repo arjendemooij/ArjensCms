@@ -1,0 +1,24 @@
+﻿@model System.Collections.Generic.IEnumerable<Cms.Data.Account>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Accounts</h2>
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Is Admin</th>
+    </tr>
+    @foreach (var account in Model)
+    {
+        <tr>
+            <td>@account.UserName</td>
+            <td>@account.EmailAdress</td>
+            <td>@account.IsAdministrator</td>
+        </tr>
+    }
+
+</table>
