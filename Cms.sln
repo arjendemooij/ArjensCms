@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cms.IService", "Cms.IServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arjen.Auditing", "Arjen.Auditing\Arjen.Auditing.csproj", "{FDF76695-7FE5-42CF-BA9C-7A59C27AC772}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arjen.Logging", "Arjen.Logging\Arjen.Logging.csproj", "{AD3595CE-47CE-4159-95E6-86EE18A5A3A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{FDF76695-7FE5-42CF-BA9C-7A59C27AC772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDF76695-7FE5-42CF-BA9C-7A59C27AC772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDF76695-7FE5-42CF-BA9C-7A59C27AC772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD3595CE-47CE-4159-95E6-86EE18A5A3A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD3595CE-47CE-4159-95E6-86EE18A5A3A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD3595CE-47CE-4159-95E6-86EE18A5A3A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD3595CE-47CE-4159-95E6-86EE18A5A3A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

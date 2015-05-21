@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.IO;
 using Arjen.Auditing;
 using Arjen.Data;
@@ -7,12 +8,14 @@ using Arjen.IOC;
 using Cms.Data;
 using InteractivePreGeneratedViews;
 using System.Linq;
+using log4net;
 
 namespace Cms.EntityData
 {
 
     public class CmsObjectContext : DbContext, IUnitOfWork, IObjectContext, IAuditableContext
     {
+        private static ILog _queryLogger = LogManager.GetLogger("QueryLogger");
         private static bool _interactiveViewsSet = false;
 
 
@@ -39,6 +42,9 @@ namespace Cms.EntityData
                 InteractiveViews.SetViewCacheFactory(this, new FileViewCacheFactory(Path.Combine(path, "CmsEfViews.xml")));
                 _interactiveViewsSet = true;
             }
+
+
+            Database.Log = s => _queryLogger.Debug(s);
         }
 
         public void Save()
@@ -53,6 +59,8 @@ namespace Cms.EntityData
             }
 
             SaveChanges();
+
+            throw new NullReferenceException("dit is een test");
         }
 
         public void Cancel()

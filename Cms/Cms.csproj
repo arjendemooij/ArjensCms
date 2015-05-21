@@ -56,6 +56,9 @@
     <Reference Include="InteractivePreGeneratedViews">
       <HintPath>..\packages\EFInteractiveViews.1.0.1\lib\net45\InteractivePreGeneratedViews.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -260,6 +263,10 @@
     <ProjectReference Include="..\Arjen.IOC\Arjen.IOC.csproj">
       <Project>{38fc6b05-7de0-47c2-96df-dcfc01df94d3}</Project>
       <Name>Arjen.IOC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arjen.Logging\Arjen.Logging.csproj">
+      <Project>{ad3595ce-47ce-4159-95e6-86ee18a5a3a0}</Project>
+      <Name>Arjen.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cms.Data\Cms.Data.csproj">
       <Project>{EC37715A-F4C5-4E8B-B596-38D82D58591B}</Project>

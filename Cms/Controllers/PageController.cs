@@ -16,6 +16,7 @@ namespace Cms.Controllers
         [HttpGet]
         public ActionResult Page(int id)
         {
+
             var page = _pageService.GetById(id);
 
             return View(page);

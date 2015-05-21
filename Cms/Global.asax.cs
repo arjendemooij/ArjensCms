@@ -6,6 +6,8 @@ using System.Web.Routing;
 using Arjen.Data.UnitOfWork;
 using Arjen.IOC;
 using Cms.App_Start;
+using log4net;
+using log4net.Config;
 
 namespace Cms
 {
@@ -16,6 +18,8 @@ namespace Cms
     {
         protected void Application_Start()
         {
+            XmlConfigurator.Configure();
+            
             new DependencyBootStrapper().BootStrap();
 
             AreaRegistration.RegisterAllAreas();
@@ -36,6 +40,26 @@ namespace Cms
         protected void Application_EndRequest(Object sender, EventArgs e)
         {
             IOCController.GetInstance<IUnitOfWorkFactory>().DestroyUnitInstance();
+        }
+
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            ILog log;
+            Exception lastException = Server.GetLastError();
+
+            try
+            {
+                log = IOCController.GetInstance<ILog>();
+            }
+            catch
+            {
+                log = LogManager.GetLogger("root");
+            }
+
+            log.Fatal("Top level application exception", lastException);
+
+            //TODO 500 page on error
+            
         }
     }
 

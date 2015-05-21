@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Cms.IService;
 using Cms.Service;
+using log4net;
 
 namespace Cms.Controllers
 {
@@ -12,11 +13,13 @@ namespace Cms.Controllers
     {
         private readonly ITestService _testService;
         private readonly IPageService _pageService;
+        private ILog _logger;
 
-        public HomeController(ITestService testService, IPageService pageService)
+        public HomeController(ITestService testService, IPageService pageService, ILog logger)
         {
             _testService = testService;
             _pageService = pageService;
+            _logger = logger;
         }
 
         //
@@ -24,6 +27,9 @@ namespace Cms.Controllers
 
         public ActionResult Index()
         {
+
+            _logger.Info("Test");
+
             _testService.TestAuditing();
             var pages = _pageService.GetAll().ToList();
             
