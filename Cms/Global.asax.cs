@@ -16,6 +16,7 @@ namespace Cms
 
     public class MvcApplication : System.Web.HttpApplication
     {
+
         protected void Application_Start()
         {
             XmlConfigurator.Configure();
@@ -34,12 +35,15 @@ namespace Cms
 
         protected void Application_BeginRequest(Object sender, EventArgs e)
         {
+            LogManager.GetLogger("RequestLogger").Debug("START " + Context.Request.RawUrl);
             IOCController.GetInstance<IUnitOfWorkFactory>().RequireUnitInstance();
         }
 
         protected void Application_EndRequest(Object sender, EventArgs e)
         {
             IOCController.GetInstance<IUnitOfWorkFactory>().DestroyUnitInstance();
+
+            LogManager.GetLogger("RequestLogger").Debug("END " + this.Context.Request.RawUrl);
         }
 
         protected void Application_Error(Object sender, EventArgs e)
@@ -57,8 +61,8 @@ namespace Cms
             }
 
             log.Fatal("Top level application exception", lastException);
+            LogManager.GetLogger("RequestLogger").Error("ERROR " + this.Context.Request.RawUrl);
 
-            //TODO 500 page on error
             
         }
     }
