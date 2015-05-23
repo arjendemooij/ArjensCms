@@ -97,6 +97,18 @@
     <Compile Include="Migrations\201505210839302_entitychange-daterequired.Designer.cs">
       <DependentUpon>201505210839302_entitychange-daterequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505212044448_Page DateChanged.cs" />
+    <Compile Include="Migrations\201505212044448_Page DateChanged.Designer.cs">
+      <DependentUpon>201505212044448_Page DateChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505212054018_page excerpt.cs" />
+    <Compile Include="Migrations\201505212054018_page excerpt.Designer.cs">
+      <DependentUpon>201505212054018_page excerpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505231927478_requiredcontent.cs" />
+    <Compile Include="Migrations\201505231927478_requiredcontent.Designer.cs">
+      <DependentUpon>201505231927478_requiredcontent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PerRequestUnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +158,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505210839302_entitychange-daterequired.resx">
       <DependentUpon>201505210839302_entitychange-daterequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505212044448_Page DateChanged.resx">
+      <DependentUpon>201505212044448_Page DateChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505212054018_page excerpt.resx">
+      <DependentUpon>201505212054018_page excerpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505231927478_requiredcontent.resx">
+      <DependentUpon>201505231927478_requiredcontent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

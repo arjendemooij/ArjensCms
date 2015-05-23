@@ -6,6 +6,7 @@ using Arjen.Data;
 using Arjen.Data.UnitOfWork;
 using Arjen.IOC;
 using Cms.Data;
+using Cms.EntityData.Migrations;
 using InteractivePreGeneratedViews;
 using System.Linq;
 using log4net;
@@ -15,7 +16,7 @@ namespace Cms.EntityData
 
     public class CmsObjectContext : DbContext, IUnitOfWork, IObjectContext, IAuditableContext
     {
-        private static ILog _queryLogger = LogManager.GetLogger("QueryLogger");
+        private static readonly ILog QueryLogger = LogManager.GetLogger("QueryLogger");
         private static bool _interactiveViewsSet = false;
 
 
@@ -30,6 +31,8 @@ namespace Cms.EntityData
 
         public CmsObjectContext()
         {
+            
+
             if (IOCController.IsAvailable())
             {
                 _entityChangeAuditor = IOCController.GetInstance<IEntityChangeAuditor>();
@@ -44,7 +47,9 @@ namespace Cms.EntityData
             }
 
 
-            Database.Log = s => _queryLogger.Debug(s);
+            Database.Log = s => QueryLogger.Debug(s);
+
+
         }
 
         public void Save()
@@ -71,6 +76,14 @@ namespace Cms.EntityData
         public IObjectContext GetObjectContext()
         {
             return this;
+        }
+
+        public static void UpdateDatabase()
+        {
+            _interactiveViewsSet = true;
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CmsObjectContext, Configuration>());
+            new CmsObjectContext().Database.Initialize(true);
+            _interactiveViewsSet = false;
         }
     }
 }

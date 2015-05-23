@@ -5,7 +5,7 @@ namespace Cms.EntityData.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Cms.EntityData.CmsObjectContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Cms.EntityData.CmsObjectContext>
     {
         public Configuration()
         {

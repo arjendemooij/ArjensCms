@@ -12,11 +12,21 @@ namespace Cms.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Contents { get; set; }
-        public DateTime DateCreated { get; set; }
-        [Required]
-        public string Author { get; set; }
         [Required]
         public string SeoUrl { get; set; }
+
+        public string Excerpt { get; set; }      
+  
+        [Required]
+        public string Contents { get; set; }
+        
+        [Required]
+        public string Author { get; set; }
+        
+        [Required]
+        public DateTime DateCreated { get; set; }
+        public DateTime DateChanged { get; set; }
+
+
     }
 }

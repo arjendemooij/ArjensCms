@@ -256,6 +256,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Arjen.Auditing\Arjen.Auditing.csproj">
+      <Project>{FDF76695-7FE5-42CF-BA9C-7A59C27AC772}</Project>
+      <Name>Arjen.Auditing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arjen.Data\Arjen.Data.csproj">
       <Project>{5A7D9BB9-B3BD-4A52-8CB1-F053CF290771}</Project>
       <Name>Arjen.Data</Name>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -6,6 +7,8 @@ using System.Web.Routing;
 using Arjen.Data.UnitOfWork;
 using Arjen.IOC;
 using Cms.App_Start;
+using Cms.EntityData;
+using Cms.EntityData.Migrations;
 using log4net;
 using log4net.Config;
 
@@ -23,6 +26,9 @@ namespace Cms
             
             new DependencyBootStrapper().BootStrap();
 
+            
+            CmsObjectContext.UpdateDatabase();
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
@@ -31,6 +37,7 @@ namespace Cms
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
+
         }
 
         protected void Application_BeginRequest(Object sender, EventArgs e)
@@ -62,8 +69,6 @@ namespace Cms
 
             log.Fatal("Top level application exception", lastException);
             LogManager.GetLogger("RequestLogger").Error("ERROR " + this.Context.Request.RawUrl);
-
-            
         }
     }
 
