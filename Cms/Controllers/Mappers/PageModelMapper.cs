@@ -12,9 +12,7 @@ namespace Cms.Controllers.Mappers
     {
         public PageModel MapToPageModel(Page page, PageModel model)
         {
-            if(model == null)
-                model = new PageModel();
-
+            
             MapperHelper.RequireMap<Page, PageModel>();
 
             model = Mapper.Map(page, model);         
