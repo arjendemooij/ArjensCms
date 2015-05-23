@@ -147,12 +147,15 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Mappers\CreateAccountModelMapper.cs" />
+    <Compile Include="Controllers\Mappers\MapperHelper.cs" />
+    <Compile Include="Controllers\Mappers\PageModelMapper.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="DependencyBootStrapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CreateAccountModel.cs" />
+    <Compile Include="Models\PageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\HtmlEditExtensions.cs" />
   </ItemGroup>

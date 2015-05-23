@@ -12,12 +12,7 @@ namespace Cms.Controllers.Mappers
     {
         public Account ToDataModel(Account account, CreateAccountModel accountModel)
         {
-            if (account == null) account = new Account();
-
-            if (Mapper.FindTypeMapFor<CreateAccountModel, Account>() == null)
-            {
-                Mapper.CreateMap<CreateAccountModel, Account>();
-            }
+            MapperHelper.RequireMap<Account, CreateAccountModel>();
 
             account = Mapper.Map(accountModel, account);
 
