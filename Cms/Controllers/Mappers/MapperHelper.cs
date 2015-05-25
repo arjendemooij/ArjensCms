@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace Cms.Controllers.Mappers
 {
-    public class MapperHelper
+    public class MapperHelper   
     {
         public static void RequireMap<TSource, TDestination>()
         {

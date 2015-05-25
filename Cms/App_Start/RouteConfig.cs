@@ -29,6 +29,12 @@ namespace Cms.App_Start
 
 
             routes.MapRoute(
+                name: "AdminDefault",
+                url: "admin/{controller}/{action}/{id}",
+                defaults: new { area="Admin", controller = "Default", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }

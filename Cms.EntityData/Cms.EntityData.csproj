@@ -109,6 +109,14 @@
     <Compile Include="Migrations\201505231927478_requiredcontent.Designer.cs">
       <DependentUpon>201505231927478_requiredcontent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505240910092_account date created.cs" />
+    <Compile Include="Migrations\201505240910092_account date created.Designer.cs">
+      <DependentUpon>201505240910092_account date created.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505241052578_Account password.cs" />
+    <Compile Include="Migrations\201505241052578_Account password.Designer.cs">
+      <DependentUpon>201505241052578_Account password.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PerRequestUnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -167,6 +175,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505231927478_requiredcontent.resx">
       <DependentUpon>201505231927478_requiredcontent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505240910092_account date created.resx">
+      <DependentUpon>201505240910092_account date created.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505241052578_Account password.resx">
+      <DependentUpon>201505241052578_Account password.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

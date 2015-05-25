@@ -8,7 +8,8 @@ namespace Cms.Models
 {
     public class CreateAccountModel
     {
-        [Required]
+        [Required]  
+        [EmailAddress]
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }

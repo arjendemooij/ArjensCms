@@ -14,5 +14,15 @@ namespace Cms.EntityData.Data
         public AccountData(IRepository<Account> repository) : base(repository)
         {
         }
+
+        public Account GetByUsernameAndPassword(string username, string password)
+        {
+            return Repository.Table.SingleOrDefault(acc => acc.UserName == username && acc.Password == password);
+        }
+
+        public Account GetByEmailAndPassword(string email, string password)
+        {
+            return Repository.Table.SingleOrDefault(acc => acc.EmailAdress == email && acc.Password == password);
+        }
     }
 }

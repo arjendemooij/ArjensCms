@@ -8,5 +8,7 @@ namespace Cms.Data.IData
 {
     public interface IAccountData : IData<Account>
     {
+        Account  GetByUsernameAndPassword(string username, string password);
+        Account GetByEmailAndPassword(string email, string password);
     }
 }

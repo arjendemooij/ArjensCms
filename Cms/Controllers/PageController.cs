@@ -18,7 +18,7 @@ namespace Cms.Controllers
         public ActionResult Page(int id)
         {
             var page = _pageService.GetById(id);
-            var viewModel = new PageModelMapper().MapToPageModel(page, null);
+            var viewModel = new PageMapper().MapToPageModel(page, null);
 
             return View(viewModel);
         }

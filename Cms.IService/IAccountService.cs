@@ -7,5 +7,6 @@ namespace Cms.IService
     {
         IEnumerable<Account> GetAll();
         void Persist(Account account);
+        bool AreValidCredentials(string usernameOrEmail, string password);
     }
 }

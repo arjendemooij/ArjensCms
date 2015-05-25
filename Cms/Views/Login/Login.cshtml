@@ -1,0 +1,15 @@
+﻿@model Cms.Areas.Admin.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm())
+{
+    <div>Username/Email: @Html.TextBoxFor(model=>model.UsernameOrEmail)</div>
+    <div>Password: @Html.TextBoxFor(model=>model.Password)</div>
+    <div><input type="submit" value="Inloggen"/></div>
+}

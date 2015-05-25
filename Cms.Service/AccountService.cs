@@ -16,7 +16,7 @@ namespace Cms.Service
         public AccountService(IAccountData accountData)
         {
             _accountData = accountData;
-            }
+        }
 
         public IEnumerable<Account> GetAll()
         {
@@ -25,12 +25,21 @@ namespace Cms.Service
 
         public void Persist(Account account)
         {
-            if(account.Id == 0)
+            if (account.Id == 0)
                 _accountData.Add(account);
             else
             {
                 _accountData.Update(account);
             }
+        }
+
+        public bool AreValidCredentials(string usernameOrLogin, string password)
+        {
+            var account = _accountData.GetByUsernameAndPassword(usernameOrLogin, password)
+                          ?? _accountData.GetByEmailAndPassword(usernameOrLogin, password);
+
+            return account != null;
+
         }
     }
 }

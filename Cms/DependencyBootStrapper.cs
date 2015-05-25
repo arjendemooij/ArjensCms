@@ -12,15 +12,19 @@ namespace Cms
             if (controllerType == null)
                 return null;
 
-            return (IController) IOCController.GetInstance(controllerType);
+            return (IController)IOCController.GetInstance(controllerType);
         }
+
     }
+
+
 
     public class DependencyBootStrapper
     {
         public void BootStrap()
         {
             IOCController.Initialize(IOCImplementationType.StructureMap);
+
             new Arjen.Data.DependencyBootStrapper().BootStrap();
             new EntityData.DependencyBootStrapper().BootStrap();
             new Service.DependencyBootStrapper().BootStrap();

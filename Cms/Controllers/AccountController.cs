@@ -23,13 +23,6 @@ namespace Cms.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult List()
-        {
-            var accounts = _accountService.GetAll();
-
-            return View(accounts);
-        }
-
         [HttpGet]
         public ActionResult Create()
         {
@@ -38,12 +31,15 @@ namespace Cms.Controllers
 
         public ActionResult Create(CreateAccountModel model)
         {
-            Account account = new CreateAccountModelMapper().ToDataModel(null, model);
-            _accountService.Persist(account);
+            if (!TryValidateModel(model)) return View(model);
 
+
+            Account account = new CreateAccountModelMapper().ToDataModel(null, model);
+
+            _accountService.Persist(account);
             _unitOfWork.Save();
 
-            return RedirectToAction("Index", "Default");
+            return RedirectToAction("Index", "Home");
         }
 
         // login

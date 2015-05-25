@@ -65,12 +65,12 @@ namespace Cms.EntityData
 
             SaveChanges();
 
-            throw new NullReferenceException("dit is een test");
         }
 
         public void Cancel()
         {
             Dispose();
+
         }
 
         public IObjectContext GetObjectContext()
@@ -80,10 +80,10 @@ namespace Cms.EntityData
 
         public static void UpdateDatabase()
         {
-            _interactiveViewsSet = true;
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CmsObjectContext, Configuration>());
-            new CmsObjectContext().Database.Initialize(true);
-            _interactiveViewsSet = false;
+            //_interactiveViewsSet = true;
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<CmsObjectContext, Configuration>());
+            //new CmsObjectContext().Database.Initialize(true);
+            //_interactiveViewsSet = false;
         }
     }
 }

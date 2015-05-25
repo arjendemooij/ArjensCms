@@ -1,0 +1,29 @@
+﻿@model Cms.Areas.Admin.Models.PageListModel
+
+@{
+    ViewBag.Title = "Pages";
+}
+
+<h2>Pages</h2>
+
+<p>
+    There are currently @Model.ItemCount pages
+</p>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Seo url</th>
+    </tr>
+    @foreach (var page in Model.Items)
+    {
+        <tr>
+            <td>@page.Id</td>
+            <td>@page.Name</td>
+            <td>@page.Author</td>
+            <td>@page.SeoUrl</td>
+        </tr>
+    }
+</table>
