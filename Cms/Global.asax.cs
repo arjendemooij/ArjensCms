@@ -7,6 +7,7 @@ using System.Web.Routing;
 using Arjen.Data.UnitOfWork;
 using Arjen.IOC;
 using Cms.App_Start;
+using Cms.Areas.Admin.Controllers.Mappers;
 using Cms.EntityData;
 using Cms.EntityData.Migrations;
 using log4net;
@@ -25,7 +26,7 @@ namespace Cms
             XmlConfigurator.Configure();
             
             new DependencyBootStrapper().BootStrap();
-
+            new AutoMapperConfigurator().Configure();
             
             CmsObjectContext.UpdateDatabase();
 

@@ -1,0 +1,12 @@
+﻿[
+    {
+        id: 1,
+        name: "test",
+        seoUrl: "test-page"
+    },
+    {
+        id: 2,
+        name: "test2",
+        seoUrl: "test-page-2"
+    }
+];

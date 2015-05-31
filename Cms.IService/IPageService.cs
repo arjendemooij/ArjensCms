@@ -9,5 +9,6 @@ namespace Cms.IService
         IEnumerable<Page> GetAll();
         void AddPage(Page testPage);
         bool ArePageUrlsUnique();
+        void Delete(Page page);
     }
 }

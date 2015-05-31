@@ -31,7 +31,7 @@ namespace Cms.EntityData
 
         public CmsObjectContext()
         {
-            
+
 
             if (IOCController.IsAvailable())
             {
@@ -54,14 +54,14 @@ namespace Cms.EntityData
 
         public void Save()
         {
-            if (_entityChangeAuditor != null)
-            {
-                var changes = this.ChangeTracker.Entries().ToList();
-                foreach (var dbEntityEntry in changes)
-                {
-                    _entityChangeAuditor.Audit(dbEntityEntry);
-                }
-            }
+            //if (_entityChangeAuditor != null)
+            //{
+            //    var changes = this.ChangeTracker.Entries().ToList();
+            //    foreach (var dbEntityEntry in changes)
+            //    {
+            //        _entityChangeAuditor.Audit(dbEntityEntry);
+            //    }
+            //}
 
             SaveChanges();
 

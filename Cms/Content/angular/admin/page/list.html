@@ -1,0 +1,17 @@
+﻿<h2>Pages</h2>
+
+<table>
+    <thead></thead>
+    <tbody>
+        <tr ng-repeat="page in pages">
+            <td>{{page.Id}}</td>
+            <td>{{page.Name}}</td>
+            <td>{{page.SeoUrl}}</td>
+            <td><a class="btn btn-danger" ng-click="delete(page)">Delete</a></td>
+        </tr>
+
+    </tbody>
+</table>
+
+<a class="btn btn-primary" ui-sref="add()">add</a>
+

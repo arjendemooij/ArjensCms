@@ -7,6 +7,7 @@ using Cms.IService;
 
 namespace Cms.Areas.Admin.Controllers
 {
+    [Authorize()]
     public class AccountController : Controller
     {
         private IAccountService _accountService;

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Cms.Areas.Admin.Models
 {
-    public class PageListItemModel
+    public class PageModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,10 +20,4 @@ namespace Cms.Areas.Admin.Models
 
     }
 
-    public class PageListModel
-    {
-        public IEnumerable<PageListItemModel> Items { get; set;  }
-
-        public int ItemCount { get; set; }
-    }
 }

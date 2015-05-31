@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace Cms.Service
 
         public void AddPage(Page testPage)
         {
+            testPage.DateCreated = DateTime.Now;
+            testPage.DateChanged = DateTime.Now;
+
             _pageData.Add(testPage);
         }
 
@@ -37,6 +41,11 @@ namespace Cms.Service
         {
             return _pageData.GetBaseQuery().Select(p => p.SeoUrl).Distinct().Count() ==
                             _pageData.GetBaseQuery().Count();
+        }
+
+        public void Delete(Page page)
+        {
+            _pageData.Delete(page);
         }
     }
 }

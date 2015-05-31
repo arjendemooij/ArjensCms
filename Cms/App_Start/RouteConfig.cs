@@ -4,6 +4,8 @@ using System.Web.Routing;
 using Arjen.IOC;
 using Cms.IService;
 using Cms.Service;
+using AttributeRouting.Web.Mvc;
+
 
 namespace Cms.App_Start
 {
@@ -12,20 +14,21 @@ namespace Cms.App_Start
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            //routes.MapAttributeRoutes();
 
-            var pageService = IOCController.GetInstance<IPageService>();
-            if (pageService.ArePageUrlsUnique())
-            {
-                var pages = pageService.GetAll().ToList();
-                foreach (var page in pages)
-                {
-                    routes.MapRoute(
-                    name: page.SeoUrl
-                    , url: page.SeoUrl
-                    , defaults: new { controller = "Page", action = "Page", id = page.Id }
-                    );
-                }
-            }
+            //var pageService = IOCController.GetInstance<IPageService>();
+            //if (pageService.ArePageUrlsUnique())
+            //{
+            //    var pages = pageService.GetAll().ToList();
+            //    foreach (var page in pages)
+            //    {
+            //        routes.MapRoute(
+            //        name: page.SeoUrl
+            //        , url: page.SeoUrl
+            //        , defaults: new { controller = "Page", action = "Page", id = page.Id }
+            //        );
+            //    }
+            //}
 
 
             routes.MapRoute(
