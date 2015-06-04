@@ -71,6 +71,8 @@ namespace Cms.Areas.Admin.Controllers
             {
                 var page = _pageService.GetById(pageModel.Id);
                 Mapper.Map(pageModel, page);
+                page.Author = _accountService.GetById(pageModel.Author.Id);
+
                 _pageService.SavePage(page);
                 _unitOfWork.Save();
 
