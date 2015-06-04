@@ -1,20 +1,3 @@
-﻿<h2>Edit page {{pageId}}</h2>
+﻿Edit
 
-<table>
-    <thead></thead>
-    <tbody>
-        <tr>
-            <td>Id</td>
-            <td>{{page.Id}}</td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>{{page.Name}}</td>
-        </tr>
-        <tr>
-            <td>SeoUrl</td>
-            <td>{{page.SeoUrl}}</td>
-        </tr>
-
-    </tbody>
-</table>
+<div ng-include="'/Content/angular/admin/page/_form.html'"></div>

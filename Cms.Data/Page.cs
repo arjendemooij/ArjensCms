@@ -21,12 +21,13 @@ namespace Cms.Data
         public string Contents { get; set; }
         
         [Required]
-        public string Author { get; set; }
+        public Account Author { get; set; }
         
         [Required]
         public DateTime DateCreated { get; set; }
         public DateTime DateChanged { get; set; }
 
+        public string BackgroundColor { get; set; }
 
     }
 }

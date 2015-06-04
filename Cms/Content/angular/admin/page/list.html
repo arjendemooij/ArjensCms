@@ -1,17 +1,29 @@
-﻿<h2>Pages</h2>
+﻿n<h2>Pages</h2>
 
 <table>
-    <thead></thead>
+    <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>SEO url</th>
+        <th></th>
+        
+
+    </thead>
     <tbody>
-        <tr ng-repeat="page in pages">
+        <tr ng-repeat="page in items">
             <td>{{page.Id}}</td>
             <td>{{page.Name}}</td>
+            <td>{{page.Author.Username}}</td>
             <td>{{page.SeoUrl}}</td>
+            <td><a class="btn btn-primary" ng-click="edit(page)">Edit</a></td>
             <td><a class="btn btn-danger" ng-click="delete(page)">Delete</a></td>
         </tr>
 
     </tbody>
 </table>
+
+<pager is-searching="isSearching"></pager>
 
 <a class="btn btn-primary" ui-sref="add()">add</a>
 

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Arjen.Data;
 using Cms.Data;
 using Cms.Data.IData;
+using System.Data.Entity;
+
 
 namespace Cms.EntityData.Data
 {
@@ -19,12 +21,12 @@ namespace Cms.EntityData.Data
 
         public IEnumerable<Page> GetAllWithName(string name)
         {
-            return Repository.Table.Where(x => x.Name == name);
+            return GetBaseQuery().Where(x => x.Name == name);
         }
 
         public IQueryable<Page> GetBaseQuery()
         {
-            return Repository.Table;
+            return Repository.Table.Include(p=>p.Author);
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Arjen.Data.UnitOfWork;
-using AttributeRouting.Web.Mvc;
+using Arjen.Helpers;
 using AutoMapper;
-using Cms.Areas.Admin.Controllers.Mappers;
 using Cms.Areas.Admin.Models;
 using Cms.Data;
 using Cms.IService;
@@ -12,49 +11,72 @@ namespace Cms.Areas.Admin.Controllers
 {
     public class PageController : Controller
     {
-        private IPageService _pageService;
-        private PageMapper _pageMapper;
-        private IUnitOfWork _unitOfWork;
+        private readonly IPageService _pageService;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IAccountService _accountService;
 
-        public PageController(IPageService pageService, PageMapper pageMapper, IUnitOfWork unitOfWork)
+        public PageController(IPageService pageService, IUnitOfWork unitOfWork, IAccountService accountService)
         {
             _pageService = pageService;
-            _pageMapper = pageMapper;
             _unitOfWork = unitOfWork;
+            _accountService = accountService;
         }
 
-        //
-        // GET: /Admin/Page/
-
+        
         public ActionResult Index()
-        {            
+        {
             return View();
         }
 
 
         [HttpGet]
         [ActionName("Api")]
-        public JsonResult List()
+        public JsonResult List(int? id, int? pageNumber, int? pageSize)
         {
-            var pages = _pageService.GetAll();
-            var pageModels = Mapper.Map<IEnumerable<Page>, IEnumerable<PageModel>>(pages);
+            if (id == null)
+            {
+                PagedList<Page> pages = _pageService.GetAll(pageNumber.Value, pageSize.Value);
+                var pageModels = new PagedList<PageModel>()
+                    {
+                        Data = Mapper.Map<IEnumerable<Page>, IEnumerable<PageModel>>(pages.Data),
+                        PageCount = pages.PageCount,
+                        PageNumber = pages.PageNumber,
+                        PageSize = pages.PageSize
+                    };
 
-            return Json(pageModels, JsonRequestBehavior.AllowGet);
+                return Json(pageModels, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var page = _pageService.GetById(id.Value);
+                var authorOptions = _accountService.GetAll();
+                var pageModel = Mapper.Map<Page, PageModel>(page);
+                pageModel.AuthorOptions = Mapper.Map<IEnumerable<Account>, IEnumerable<PageAuthorModel>>(authorOptions);
+
+                return Json(pageModel, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
         [ActionName("Api")]
-        public JsonResult Add(PageModel pageModel)
-        {            
-            var page = Mapper.Map<PageModel, Page>(pageModel);
-            _pageService.AddPage(page);
-            _unitOfWork.Save();
+        public JsonResult Save(PageModel pageModel)
+        {
+            if (pageModel.Id == 0)
+            {
+                var page = Mapper.Map<PageModel, Page>(pageModel);
+                _pageService.AddPage(page);
+                _unitOfWork.Save();
+            }
+            else
+            {
+                var page = _pageService.GetById(pageModel.Id);
+                Mapper.Map(pageModel, page);
+                _pageService.SavePage(page);
+                _unitOfWork.Save();
 
+            }
             return Json(true);
         }
-
-
-        
 
         [HttpDelete]
         [ActionName("Api")]
@@ -62,15 +84,9 @@ namespace Cms.Areas.Admin.Controllers
         {
             var page = _pageService.GetById(id);
             _pageService.Delete(page);
-           _unitOfWork.Save();
+            _unitOfWork.Save();
             return Json(true);
         }
-
-        //[Route("/Admin/Page")]
-        //public JsonResult Add(PageModel page)
-        //{
-        //    return Json(page);
-        //}
 
     }
 }

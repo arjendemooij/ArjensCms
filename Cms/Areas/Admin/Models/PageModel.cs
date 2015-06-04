@@ -16,8 +16,10 @@ namespace Cms.Areas.Admin.Models
         [Required]
         public string Contents { get; set; }
         [Required]
-        public string Author { get; set; }
+        public PageAuthorModel Author { get; set; }
+        public string BackgroundColor { get; set; }
 
+        public IEnumerable<PageAuthorModel> AuthorOptions { get; set; } 
     }
 
 }

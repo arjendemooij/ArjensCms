@@ -1,9 +1,11 @@
-﻿angular.module('cmsAdmin.controllers', [])
+﻿angular.module('cmsAdm  in.controllers', [])
 .controller('ListController', ['$scope', '$state', 'Service', function ($scope, $state, service) {
 
-    
+    var inline = false;
+    $scope.selectedId = 3;
+
     $scope.isSearching = false;
-    if (!$scope.PageNumber) {        
+    if (!$scope.PageNumber) {
         $scope.PageNumber = 0;
     }
     $scope.PageSize = 3;
@@ -15,14 +17,21 @@
         });
     };
 
-    $scope.edit = function (item) {
-       
-        $state.go('edit', { Id: item.Id });
+    if (inline) {
+        $scope.edit = function (item) {
+            $scope.selectedId = item.Id;
+            console.log(item.Id);
+        };
+        
+    } else {
+        $scope.edit = function (item) {
 
-    };
+            $state.go('edit', { Id: item.Id });
 
+        }; 
+    }
     $scope.search = function (pageNumber) {
-      
+
         $scope.PageNumber = pageNumber;
         reloadData();
     };
@@ -32,7 +41,7 @@
 
 
     function reloadData() {
-        
+
         $scope.items = service.query({
             pageNumber: $scope.PageNumber,
             pageSize: $scope.PageSize

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Arjen.Data.UnitOfWork;
 using Arjen.IOC;
 using Cms.Data;
@@ -10,10 +11,12 @@ namespace Cms.Service
     public class TestService : ITestService
     {
         private IPageData _pageData;
+        private IAccountService _accountService;
 
-        public TestService(IPageData pageData)
+        public TestService(IPageData pageData, IAccountService accountService)
         {
             _pageData = pageData;
+            _accountService = accountService;
         }
 
 
@@ -28,7 +31,7 @@ namespace Cms.Service
 
             var testPage = new Page
                 {
-                    Author = "Test",
+                    Author = _accountService.GetAll().First(),
                     Contents = "test",
                     DateCreated = DateTime.Now,
                     Name = "Test",

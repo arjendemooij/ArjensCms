@@ -1,14 +1,11 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.IO;
 using Arjen.Auditing;
 using Arjen.Data;
 using Arjen.Data.UnitOfWork;
 using Arjen.IOC;
 using Cms.Data;
-using Cms.EntityData.Migrations;
 using InteractivePreGeneratedViews;
-using System.Linq;
 using log4net;
 
 namespace Cms.EntityData
@@ -31,7 +28,7 @@ namespace Cms.EntityData
 
         public CmsObjectContext()
         {
-
+            Pages.Include(x => x.Author);
 
             if (IOCController.IsAvailable())
             {

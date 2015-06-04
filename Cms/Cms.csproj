@@ -162,7 +162,8 @@
     <Compile Include="Areas\Admin\Controllers\Mappers\PageMapper.cs" />
     <Compile Include="Areas\Admin\Controllers\PageController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
-    <Compile Include="Areas\Admin\Models\PageListModel.cs" />
+    <Compile Include="Areas\Admin\Models\PageAuthorModel.cs" />
+    <Compile Include="Areas\Admin\Models\PageModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -185,6 +186,7 @@
     <Content Include="Content\angular\admin\page\add.html" />
     <Content Include="Content\angular\admin\page\edit.html" />
     <Content Include="Content\angular\admin\page\list.html" />
+    <Content Include="Content\angular\admin\page\_form.html" />
     <Content Include="Content\angular\directives\pager.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -1093,6 +1095,10 @@
     <ProjectReference Include="..\Arjen.Data\Arjen.Data.csproj">
       <Project>{5A7D9BB9-B3BD-4A52-8CB1-F053CF290771}</Project>
       <Name>Arjen.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arjen.Helpers\Arjen.Helpers.csproj">
+      <Project>{7683DEEC-6DEB-4B5D-AF74-B34205873E78}</Project>
+      <Name>Arjen.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Arjen.IOC\Arjen.IOC.csproj">
       <Project>{38fc6b05-7de0-47c2-96df-dcfc01df94d3}</Project>

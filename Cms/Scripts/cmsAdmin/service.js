@@ -1,11 +1,9 @@
-﻿var pageService = angular.module('pageService', ['ngResource']);
+﻿var service = angular.module('service', ['ngResource']);
 
-pageService.factory('Page', ['$resource',
+service.factory('Service', ['$resource',
   function ($resource) {
-      return $resource('/Admin/Page/Api/:id', { id: '@Id' }, {
-          delete: {
-              method: 'DELETE'
-          }
-
+      return $resource('/Admin/' + entityName + '/Api/:id', { id: '@Id' }, {
+          delete: { method: 'DELETE', isArray: false },
+          query: { method: 'GET', isArray: false }
       });
   }]);

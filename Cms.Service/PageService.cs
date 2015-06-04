@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Arjen.Data;
+using Arjen.Helpers;
 using Cms.Data;
 using Cms.Data.IData;
 using Cms.IService;
@@ -46,6 +47,27 @@ namespace Cms.Service
         public void Delete(Page page)
         {
             _pageData.Delete(page);
+        }
+
+        public PagedList<Page> GetAll(int pageNumber, int pageSize)
+        {
+            var query = _pageData.GetBaseQuery().OrderBy(p => p.Id);
+
+            var pages = new PagedList<Page>
+                {
+                    PageCount = (int)Math.Ceiling(query.Count() / (double)pageSize),
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                    Data = query.Skip((pageNumber) * pageSize).Take(pageSize).ToList()
+                };
+
+
+            return pages;
+        }
+
+        public void SavePage(Page page)
+        {
+
         }
     }
 }
