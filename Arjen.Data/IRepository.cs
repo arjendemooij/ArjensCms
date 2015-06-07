@@ -1,10 +1,13 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 
 namespace Arjen.Data
 {
     public interface IRepository<T>
         where T : class
     {
-        DbSet<T> Table { get; }
+        IDbSet<T> Table { get; }
+        IQueryable<T> GetBaseQuery();
+        bool UseCache();
     }
 }
