@@ -1,4 +1,4 @@
-﻿angular.module('cmsAdm  in.controllers', [])
+﻿angular.module('cmsAdmin.controllers', [])
 .controller('ListController', ['$scope', '$state', 'Service', function ($scope, $state, service) {
 
     var inline = false;

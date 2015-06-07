@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Arjen.Cache;
 using Arjen.Data;
+using Cms.Data;
 using Cms.Data.IData;
 
 namespace Cms.EntityData.Data
@@ -11,34 +13,70 @@ namespace Cms.EntityData.Data
     public abstract class BaseData<TEntity>: IData<TEntity> where TEntity : class, IHasId
     {
         protected readonly IRepository<TEntity> Repository;
+        protected readonly IEntityCache EntityCache;
 
-        protected BaseData(IRepository<TEntity> repository)
+        protected BaseData(IEntityCache entityCache)
+        {
+            EntityCache = entityCache;
+        }
+
+        protected BaseData(IRepository<TEntity> repository, IEntityCache entityCache)
         {
             Repository = repository;
+            EntityCache = entityCache;
         }
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
-            return Repository.Table.SingleOrDefault(x => x.Id == id);
+            using (new QueryContext().NoCache())
+            {
+                return GetBaseQuery().SingleOrDefault(x => x.Id == id);
+            }
         }
 
-        public void Add(TEntity entity)
+        public virtual void Add(TEntity entity)
         {
             Repository.Table.Add(entity);
         }
 
-        public void Update(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
+                
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
             Repository.Table.Remove(entity);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
-            return Repository.Table.ToList();
+            return GetBaseQuery().ToList();
         }
+
+        public virtual IQueryable<TEntity> TableWithIncludes()
+        {
+            return AddDefaultIncludes(Repository.GetBaseQuery());
+        }
+
+        public IQueryable<TEntity> GetBaseQuery()
+        {
+            if(Repository.UseCache())
+            {
+                return EntityCache.HasListCache<TEntity>()
+                   ? EntityCache.GetCachedList<TEntity>().AsQueryable()
+                   : EntityCache.CacheList(TableWithIncludes().ToList()).AsQueryable();
+            }
+            else
+            {
+                return TableWithIncludes();
+            }
+            
+        }
+
+        protected virtual IQueryable<TEntity> AddDefaultIncludes(IQueryable<TEntity> baseQuery )
+        {
+            return baseQuery;
+        } 
     }
 }

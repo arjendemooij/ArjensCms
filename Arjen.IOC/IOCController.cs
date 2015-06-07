@@ -41,12 +41,17 @@ namespace Arjen.IOC
 
         public static void RegisterFactoryMethod<TInterface>(Func<TInterface> createInstance)
         {
-            _implementation.RegisterFactoryMethod<TInterface>(createInstance);
+            _implementation.RegisterFactoryMethod(createInstance);
         }
 
-        public static void Register<TInterface, TClass>() where TClass : TInterface
+        public static void Register(Type tInterface, Type tClass, DIScope scope = DIScope.Request)
         {
-            _implementation.Register<TInterface, TClass>();
+            _implementation.Register(tInterface, tClass, scope);
+        }
+
+        public static void Register<TInterface, TClass>(DIScope scope = DIScope.Request) where TClass : TInterface
+        {
+            _implementation.Register<TInterface, TClass>(scope);
         }
 
         public static TInterface GetInstance<TInterface>()
@@ -70,6 +75,11 @@ namespace Arjen.IOC
         }
     }
 
+    public enum DIScope
+    {
+        Request, Application
+    }
+
     public class StructureMapIOC : IIOCImplementation
     {
         public void Initialize()
@@ -77,9 +87,35 @@ namespace Arjen.IOC
             ObjectFactory.Initialize();
         }
 
-        public void Register<TInterface, TImplementation>() where TImplementation : TInterface
+        public void Register<TInterface, TImplementation>(DIScope scope) where TImplementation : TInterface
         {
-            ObjectFactory.Configure(x => x.For<TInterface>().Use<TImplementation>());
+            if (scope == DIScope.Request)
+                ObjectFactory.Configure(x => x.For<TInterface>().Use<TImplementation>().Transient());
+            else if (scope == DIScope.Application)
+            {
+                ObjectFactory.Configure(x => x.For<TInterface>().Use<TImplementation>().Singleton());
+            }
+            else
+            {
+                throw new ArgumentException(string.Format("Illegal DI scope {0}", scope));
+            }
+
+            
+        }
+
+
+        public void Register(Type tInterface, Type tClass, DIScope scope)
+        {
+            if (scope == DIScope.Request)
+                ObjectFactory.Container.Configure(x => x.For(tInterface).Use(tClass).Singleton());
+            else if (scope == DIScope.Application)
+            {
+                ObjectFactory.Container.Configure(x => x.For(tInterface).Use(tClass).Transient());
+            }
+            else
+            {
+                throw new ArgumentException(string.Format("Illegal DI scope {0}", scope));
+            }
         }
 
         public void RegisterInstance<TInterface>(TInterface instance) where TInterface : class
@@ -116,6 +152,7 @@ namespace Arjen.IOC
                 .Use<TInterface>(context => createInstance()));
         }
 
+
         internal class InterfaceNameConvention : IRegistrationConvention
         {
             #region IRegistrationConvention Members
@@ -141,11 +178,12 @@ namespace Arjen.IOC
     public interface IIOCImplementation
     {
         void Initialize();
-        void Register<TInterface, TImplementation>() where TImplementation : TInterface;
+        void Register<TInterface, TImplementation>(DIScope scope) where TImplementation : TInterface;
         void RegisterInstance<TInterface>(TInterface instance) where TInterface : class;
         TInterface GetInstance<TInterface>();
         object GetInstance(Type instanceType);
         void AutoRegisterInterface(Assembly assembly);
         void RegisterFactoryMethod<T>(Func<T> createInstance);
+        void Register(Type tInterface, Type tClass, DIScope scope);
     }
 }

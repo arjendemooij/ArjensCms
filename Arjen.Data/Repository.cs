@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 
 namespace Arjen.Data
 {
@@ -8,12 +9,28 @@ namespace Arjen.Data
 
         public Repository(IObjectContext objectContext)
         {
-            _objectContext = objectContext;            
+            _objectContext = objectContext;
         }
 
+        public IQueryable<T> GetBaseQuery()
+        {
+            var set = _objectContext.Set<T>();
+            var withIncludes = _objectContext.RelatedObjectsConfiguration.AddIncludesToQuery(set);
 
-        public DbSet<T> Table {
-            get { return _objectContext.Set<T>(); }
+            return withIncludes;
+        }
+
+        public bool UseCache()
+        {
+            return _objectContext.CachingSettings.UseCache;
+        }
+
+        public IDbSet<T> Table
+        {
+            get
+            {
+                return _objectContext.Set<T>();
+            }
         }
     }
 }

@@ -47,6 +47,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Arjen.Data\Arjen.Data.csproj">
+      <Project>{5a7d9bb9-b3bd-4a52-8cb1-f053cf290771}</Project>
+      <Name>Arjen.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arjen.Helpers\Arjen.Helpers.csproj">
       <Project>{7683DEEC-6DEB-4B5D-AF74-B34205873E78}</Project>
       <Name>Arjen.Helpers</Name>

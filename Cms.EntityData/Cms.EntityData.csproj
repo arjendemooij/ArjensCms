@@ -141,6 +141,10 @@
       <Project>{FDF76695-7FE5-42CF-BA9C-7A59C27AC772}</Project>
       <Name>Arjen.Auditing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Arjen.Cache\Arjen.Cache.csproj">
+      <Project>{4827C4F0-33E6-4FB4-BBA1-6779396BF4C7}</Project>
+      <Name>Arjen.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arjen.Data\Arjen.Data.csproj">
       <Project>{5A7D9BB9-B3BD-4A52-8CB1-F053CF290771}</Project>
       <Name>Arjen.Data</Name>

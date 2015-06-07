@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StructureMap;
+﻿using Arjen.IOC;
 
 namespace Arjen.Data
 {
@@ -11,10 +6,7 @@ namespace Arjen.Data
     {
         public void BootStrap()
         {
-            ObjectFactory.Configure(x =>
-                {
-                    x.For(typeof (IRepository<>)).Use(typeof (Repository<>));
-                });
+            IOCController.Register(typeof (IRepository<>), typeof (Repository<>));
         }
     }
 }

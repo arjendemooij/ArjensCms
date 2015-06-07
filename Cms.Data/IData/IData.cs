@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Arjen.Data;
 
 namespace Cms.Data.IData
 {
-    public interface IHasId
-    {
-        int Id { get; }
-    }
-
-
     public interface IData<TEntity>
         where TEntity : IHasId  
     {
@@ -16,6 +12,6 @@ namespace Cms.Data.IData
         void Update(TEntity entity);
         void Delete(TEntity entity);
         IEnumerable<TEntity> GetAll();
-
+        IQueryable<TEntity> GetBaseQuery();
     }
 }

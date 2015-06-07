@@ -29,6 +29,7 @@ namespace Cms
             new EntityData.DependencyBootStrapper().BootStrap();
             new Service.DependencyBootStrapper().BootStrap();
             new Arjen.Logging.DependencyBootStrapper().BootStrap();
+            new Arjen.Cache.DependencyBootStrapper().BootStrap();
         }
 
     }

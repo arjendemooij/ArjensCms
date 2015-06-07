@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5A7D9BB9-B3BD-4A52-8CB1-F053CF290771}</ProjectGuid>
+    <ProjectGuid>{4827C4F0-33E6-4FB4-BBA1-6779396BF4C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Arjen.Data</RootNamespace>
-    <AssemblyName>Arjen.Data</AssemblyName>
+    <RootNamespace>Arjen.Cache</RootNamespace>
+    <AssemblyName>Arjen.Cache</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,16 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,44 +39,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CacheItem.cs" />
     <Compile Include="DependencyBootstrapper.cs" />
-    <Compile Include="IHasId.cs" />
-    <Compile Include="IObjectContext.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="NavigationPropertyExtensions.cs" />
+    <Compile Include="EntityCache.cs" />
+    <Compile Include="EntityPropertyInfoRepository.cs" />
+    <Compile Include="EntityTypeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RelatedObjectsConfiguration.cs" />
-    <Compile Include="QueryContext.cs" />
-    <Compile Include="Repository.cs" />
-    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
-    <Compile Include="UnitOfWork\IUnitOfWorkFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="scripts\angular-ui-router.js" />
-    <Content Include="scripts\angular-ui-router.min.js" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\Arjen.Data\Arjen.Data.csproj">
+      <Project>{5A7D9BB9-B3BD-4A52-8CB1-F053CF290771}</Project>
+      <Name>Arjen.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arjen.IOC\Arjen.IOC.csproj">
       <Project>{38FC6B05-7DE0-47C2-96DF-DCFC01DF94D3}</Project>
       <Name>Arjen.IOC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Arjen.Reflection\Arjen.Reflection.csproj">
-      <Project>{981CBB87-537B-47D8-B5CB-667651EBF6E4}</Project>
+      <Project>{981cbb87-537b-47d8-b5cb-667651ebf6e4}</Project>
       <Name>Arjen.Reflection</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

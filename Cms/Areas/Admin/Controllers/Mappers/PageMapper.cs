@@ -14,6 +14,7 @@ namespace Cms.Areas.Admin.Controllers.Mappers
             MapperHelper.RequireMap<Page, PageModel>();
             MapperHelper.RequireMap<PageModel, Page>();
             MapperHelper.RequireMap<Account, PageAuthorModel>();
+            
         }
 
     }

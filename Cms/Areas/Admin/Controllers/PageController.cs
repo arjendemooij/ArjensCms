@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Arjen.Data;
 using Arjen.Data.UnitOfWork;
 using Arjen.Helpers;
 using AutoMapper;
@@ -22,7 +23,7 @@ namespace Cms.Areas.Admin.Controllers
             _accountService = accountService;
         }
 
-        
+
         public ActionResult Index()
         {
             return View();
@@ -35,23 +36,28 @@ namespace Cms.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                PagedList<Page> pages = _pageService.GetAll(pageNumber.Value, pageSize.Value);
-                var pageModels = new PagedList<PageModel>()
-                    {
-                        Data = Mapper.Map<IEnumerable<Page>, IEnumerable<PageModel>>(pages.Data),
-                        PageCount = pages.PageCount,
-                        PageNumber = pages.PageNumber,
-                        PageSize = pages.PageSize
-                    };
+                using (new QueryContext().NoCache())
+                {
+                    PagedList<Page> pages = _pageService.GetAll(pageNumber.Value, pageSize.Value);
 
-                return Json(pageModels, JsonRequestBehavior.AllowGet);
+                    var pageModels = new PagedList<PageModel>()
+                        {
+                            Data = Mapper.Map<IEnumerable<Page>, IEnumerable<PageModel>>(pages.Data),
+                            PageCount = pages.PageCount,
+                            PageNumber = pages.PageNumber,
+                            PageSize = pages.PageSize
+                        };
+
+                    return Json(pageModels, JsonRequestBehavior.AllowGet);
+                }
             }
             else
             {
                 var page = _pageService.GetById(id.Value);
                 var authorOptions = _accountService.GetAll();
                 var pageModel = Mapper.Map<Page, PageModel>(page);
-                pageModel.AuthorOptions = Mapper.Map<IEnumerable<Account>, IEnumerable<PageAuthorModel>>(authorOptions);
+                pageModel.AuthorOptions =
+                    Mapper.Map<IEnumerable<Account>, IEnumerable<PageAuthorModel>>(authorOptions);
 
                 return Json(pageModel, JsonRequestBehavior.AllowGet);
             }
@@ -61,22 +67,22 @@ namespace Cms.Areas.Admin.Controllers
         [ActionName("Api")]
         public JsonResult Save(PageModel pageModel)
         {
+            Page page;
             if (pageModel.Id == 0)
             {
-                var page = Mapper.Map<PageModel, Page>(pageModel);
+                page = new Page();
                 _pageService.AddPage(page);
-                _unitOfWork.Save();
             }
             else
             {
-                var page = _pageService.GetById(pageModel.Id);
-                Mapper.Map(pageModel, page);
-                page.Author = _accountService.GetById(pageModel.Author.Id);
-
-                _pageService.SavePage(page);
-                _unitOfWork.Save();
-
+                page = _pageService.GetById(pageModel.Id);
             }
+
+            Mapper.Map(pageModel, page);
+            page.Author = _accountService.GetById(pageModel.Author.Id);
+
+            _unitOfWork.Save();
+
             return Json(true);
         }
 

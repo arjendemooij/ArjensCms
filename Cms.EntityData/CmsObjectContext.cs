@@ -1,12 +1,15 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using Arjen.Auditing;
+using Arjen.Cache;
 using Arjen.Data;
 using Arjen.Data.UnitOfWork;
 using Arjen.IOC;
 using Cms.Data;
 using InteractivePreGeneratedViews;
 using log4net;
+using System.Linq;
 
 namespace Cms.EntityData
 {
@@ -22,13 +25,19 @@ namespace Cms.EntityData
         public DbSet<EntityChange> EntityChanges { get; set; }
         public DbSet<EntityChangeField> EntityChangeFields { get; set; }
 
+        public RelatedObjectsConfiguration RelatedObjectsConfiguration { get; set; }
+        public CachingSettings CachingSettings { get; set; }
 
         private readonly IEntityChangeAuditor _entityChangeAuditor;
+        private readonly IEntityCache _entityCache;
 
 
         public CmsObjectContext()
         {
-            Pages.Include(x => x.Author);
+            RelatedObjectsConfiguration = new RelatedObjectsConfiguration();
+            CachingSettings = new CachingSettings();
+
+            _entityCache = IOCController.GetInstance<IEntityCache>();
 
             if (IOCController.IsAvailable())
             {
@@ -43,25 +52,69 @@ namespace Cms.EntityData
                 _interactiveViewsSet = true;
             }
 
-
             Database.Log = s => QueryLogger.Debug(s);
-
-
         }
 
         public void Save()
         {
-            //if (_entityChangeAuditor != null)
-            //{
-            //    var changes = this.ChangeTracker.Entries().ToList();
-            //    foreach (var dbEntityEntry in changes)
-            //    {
-            //        _entityChangeAuditor.Audit(dbEntityEntry);
-            //    }
-            //}
-
+            //AuditChanges();
+            FixCachedItems();
+            InvalidateCache();
             SaveChanges();
 
+        }
+
+        private void InvalidateCache()
+        {
+            var changeStates = new[] {EntityState.Added, EntityState.Deleted, EntityState.Modified};
+            var changes = this.ChangeTracker.Entries().ToList();
+            foreach (var entry in changes)
+            {
+                if (changeStates.Contains(entry.State))
+                {
+                    var type = entry.Entity.GetType();
+                    _entityCache.InvalidateCache(type);
+                }
+            }
+        }
+
+        private void FixCachedItems()
+        {
+            var changes = this.ChangeTracker.Entries().ToList();
+
+            var entities = changes.Select(dbEntityEntry => dbEntityEntry.Entity).ToList();
+
+            foreach (var entity in entities)
+            {
+                foreach (var property in entity.GetType().GetProperties())
+                {
+                    if (property.IsNavigationProperty())
+                    {
+                        object value = property.GetValue(entity);
+                        if (value != null && _entityCache.ContainsItem(value))
+                        {
+                            var change = changes.Single(c => c.Entity == value);
+                            if(change.State == EntityState.Added)
+                                change.State = EntityState.Unchanged;
+
+                            var uncachedValue = Set(value.GetType()).Find(property.GetIdValue(value));
+                            property.SetValue(entity, uncachedValue);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void AuditChanges()
+        {
+            if (_entityChangeAuditor != null)
+            {
+                var changes = this.ChangeTracker.Entries().ToList();
+                foreach (var dbEntityEntry in changes)
+                {
+                    _entityChangeAuditor.Audit(dbEntityEntry);
+                }
+            }
         }
 
         public void Cancel()

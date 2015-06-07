@@ -10,5 +10,6 @@ namespace Cms.Data.IData
     {
         Account  GetByUsernameAndPassword(string username, string password);
         Account GetByEmailAndPassword(string email, string password);
+        
     }
 }

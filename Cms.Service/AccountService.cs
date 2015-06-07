@@ -41,5 +41,12 @@ namespace Cms.Service
             return account != null;
 
         }
+
+        public Account GetById(int id)
+        {
+            return _accountData.GetById(id);
+        }
+
+        
     }
 }

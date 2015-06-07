@@ -1,14 +1,13 @@
 ﻿using System.Web.Mvc;
 using Cms.Controllers.Mappers;
 using Cms.IService;
-using Cms.Service;
 
 namespace Cms.Controllers
 {
     public class PageController : Controller
     {
         private readonly IPageService _pageService;
-
+       
         public PageController(IPageService pageService)
         {
             _pageService = pageService;
