@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Arjen.Data;
-using Arjen.Data.UnitOfWork;
 using Arjen.Helpers;
 using AutoMapper;
 using Cms.Areas.Admin.Models;
-using Cms.Data;
 using Cms.IService;
+using Cms.Models;
+using PageModel = Cms.Areas.Admin.Models.PageModel;
 
 namespace Cms.Areas.Admin.Controllers
 {

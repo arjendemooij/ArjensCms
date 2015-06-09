@@ -1,33 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Arjen.Data;
+using Arjen.Data.Repository;
 using Arjen.Helpers;
-using Cms.Data;
-using Cms.Data.IData;
 using Cms.IService;
+using Cms.Models;
 
 namespace Cms.Service
 {
     public class PageService : IPageService
     {
-        private readonly IPageData _pageData;
+        private readonly IRepository<Page> _pageRepository;
 
-        public PageService(IPageData pageData)
+        private RepositoryQuery<Page> GetBaseQuery()
         {
-            _pageData = pageData;
+            return _pageRepository.Query().Include(p => p.Author);
+        }
+
+        public PageService(IRepository<Page> pageRepository)
+        {
+            _pageRepository = pageRepository;
         }
 
         public Page GetById(int id)
         {
-            return _pageData.GetById(id);
+            return _pageRepository.FindById(id);
         }
 
         public IEnumerable<Page> GetAll()
         {
-            return _pageData.GetAll();
+            return GetBaseQuery().Get();
         }
 
         public void AddPage(Page testPage)
@@ -35,27 +38,28 @@ namespace Cms.Service
             testPage.DateCreated = DateTime.Now;
             testPage.DateChanged = DateTime.Now;
 
-            _pageData.Add(testPage);
+            _pageRepository.InsertGraph(testPage);
         }
 
         public bool ArePageUrlsUnique()
         {
-            return _pageData.GetBaseQuery().Select(p => p.SeoUrl).Distinct().Count() ==
-                            _pageData.GetBaseQuery().Count();
+            return GetBaseQuery().Get().Select(p => p.SeoUrl).Distinct().Count() ==
+                            _pageRepository.Query().Get().Count();
         }
 
         public void Delete(Page page)
         {
-            _pageData.Delete(page);
+            _pageRepository.Delete(page);
         }
 
         public PagedList<Page> GetAll(int pageNumber, int pageSize)
         {
-            var query = _pageData.GetBaseQuery().OrderBy(p => p.Id);
+            int pageCount;
+            var query = GetBaseQuery().OrderBy(q => q.OrderByDescending(page => page.Id)).GetPage(pageNumber+1, pageSize, out pageCount).ToList();
 
             var pages = new PagedList<Page>
                 {
-                    PageCount = (int)Math.Ceiling(query.Count() / (double)pageSize),
+                    PageCount = pageCount,
                     PageNumber = pageNumber,
                     PageSize = pageSize,
                     Data = query.Skip((pageNumber) * pageSize).Take(pageSize).ToList()
@@ -67,7 +71,7 @@ namespace Cms.Service
 
         public void SavePage(Page page)
         {
-
+            _pageRepository.Update(page);
         }
     }
 }

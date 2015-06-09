@@ -1,50 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cms.Data;
-using Cms.Data.IData;
+using Arjen.Data.Repository;
 using Cms.IService;
+using Cms.Models;
 
 namespace Cms.Service
 {
     public class AccountService : IAccountService
     {
-        private readonly IAccountData _accountData;
+        private readonly IRepository<Account> _accountRepository;
 
-        public AccountService(IAccountData accountData)
+        public AccountService(IRepository<Account> accountRepository)
         {
-            _accountData = accountData;
+            _accountRepository = accountRepository;
         }
 
         public IEnumerable<Account> GetAll()
         {
-            return _accountData.GetAll().ToList();
+            return _accountRepository.Query().Get().ToList();
         }
 
         public void Persist(Account account)
         {
             if (account.Id == 0)
-                _accountData.Add(account);
+                _accountRepository.InsertGraph(account);
             else
             {
-                _accountData.Update(account);
+                _accountRepository.Update(account);
             }
         }
 
         public bool AreValidCredentials(string usernameOrLogin, string password)
         {
-            var account = _accountData.GetByUsernameAndPassword(usernameOrLogin, password)
-                          ?? _accountData.GetByEmailAndPassword(usernameOrLogin, password);
+            var account = GetByUsernameAndPassword(usernameOrLogin, password)
+                          ?? _GetByEmailAndPassword(usernameOrLogin, password);
 
             return account != null;
 
         }
 
+        private Account _GetByEmailAndPassword(string email, string password)
+        {
+            return _accountRepository
+                .Query()
+                .Filter(acc => acc.EmailAdress == email && acc.Password == password)
+                .Get()
+                .Single();
+        }
+
+        private Account GetByUsernameAndPassword(string username, string password)
+        {
+            return _accountRepository
+                .Query()
+                .Filter(acc => acc.UserName == username && acc.Password == password)
+                .Get()
+                .Single();
+        }
+
         public Account GetById(int id)
         {
-            return _accountData.GetById(id);
+            return _accountRepository.FindById(id);
         }
 
         

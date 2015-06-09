@@ -55,9 +55,9 @@
       <Project>{7683DEEC-6DEB-4B5D-AF74-B34205873E78}</Project>
       <Name>Arjen.Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cms.Data\Cms.Data.csproj">
-      <Project>{EC37715A-F4C5-4E8B-B596-38D82D58591B}</Project>
-      <Name>Cms.Data</Name>
+    <ProjectReference Include="..\Cms.Models\Cms.Models.csproj">
+      <Project>{ba12fedd-5188-4789-855e-75aa023517f9}</Project>
+      <Name>Cms.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

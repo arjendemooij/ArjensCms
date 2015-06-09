@@ -61,13 +61,13 @@
       <Project>{38fc6b05-7de0-47c2-96df-dcfc01df94d3}</Project>
       <Name>Arjen.IOC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cms.Data\Cms.Data.csproj">
-      <Project>{EC37715A-F4C5-4E8B-B596-38D82D58591B}</Project>
-      <Name>Cms.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cms.IService\Cms.IService.csproj">
       <Project>{1060BCC7-830A-4FAB-ACA3-C52750BEC9A3}</Project>
       <Name>Cms.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cms.Models\Cms.Models.csproj">
+      <Project>{BA12FEDD-5188-4789-855E-75AA023517F9}</Project>
+      <Name>Cms.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

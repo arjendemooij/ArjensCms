@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Arjen.Helpers;
-using Cms.Data;
+using Cms.Models;
 
 namespace Cms.IService
 {

@@ -3,7 +3,8 @@ using System.Linq;
 using AutoMapper;
 using Cms.Areas.Admin.Models;
 using Cms.Controllers.Mappers;
-using Cms.Data;
+using Cms.Models;
+using PageModel = Cms.Areas.Admin.Models.PageModel;
 
 namespace Cms.Areas.Admin.Controllers.Mappers
 {

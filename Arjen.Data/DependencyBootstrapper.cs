@@ -1,4 +1,5 @@
-﻿using Arjen.IOC;
+﻿using Arjen.Data.Repository;
+using Arjen.IOC;
 
 namespace Arjen.Data
 {

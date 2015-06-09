@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using Cms.Data;
 using Cms.Models;
 
 namespace Cms.Controllers.Mappers

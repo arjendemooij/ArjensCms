@@ -1,5 +1,5 @@
 ﻿using Arjen.Auditing;
-using Arjen.Data.UnitOfWork;
+using Arjen.Data;
 using Arjen.IOC;
 
 namespace Cms.EntityData
@@ -8,9 +8,10 @@ namespace Cms.EntityData
     {
         public void BootStrap()
         {   
-            IOCController.Register<IUnitOfWork, CmsObjectContext>();
-            IOCController.RegisterFactoryMethod(()=>IOCController.GetInstance<IUnitOfWork>().GetObjectContext());
-            IOCController.RegisterFactoryMethod(() => IOCController.GetInstance<IUnitOfWork>().GetObjectContext() as IAuditableContext);
+            IOCController.Register<IUnitOfWork, UnitOfWork>();
+            IOCController.Register<IDbContext, CmsObjectContext>();
+            IOCController.Register<IEntityChangeAuditor, EntityChangeAuditor>();
+            IOCController.RegisterFactoryMethod(() => IOCController.GetInstance<IDbContext>() as IAuditableContext);
 
             IOCController.AutoRegisterInterface(GetType().Assembly);
 

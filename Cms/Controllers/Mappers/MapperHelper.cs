@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Web;
 using Arjen.Data;
 using AutoMapper;
-using Cms.Data.IData;
 
 namespace Cms.Controllers.Mappers
 {

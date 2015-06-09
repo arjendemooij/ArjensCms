@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Cms.Data;
+using Cms.Models;
 
 namespace Cms.IService
 {

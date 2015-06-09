@@ -56,11 +56,12 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="InteractivePreGeneratedViews">
       <HintPath>..\packages\EFInteractiveViews.1.0.1\lib\net45\InteractivePreGeneratedViews.dll</HintPath>
@@ -1112,10 +1113,6 @@
       <Project>{ad3595ce-47ce-4159-95e6-86ee18a5a3a0}</Project>
       <Name>Arjen.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cms.Data\Cms.Data.csproj">
-      <Project>{EC37715A-F4C5-4E8B-B596-38D82D58591B}</Project>
-      <Name>Cms.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cms.EntityData\Cms.EntityData.csproj">
       <Project>{b59b967f-77a5-4ae0-ac61-5ea7897aff2a}</Project>
       <Name>Cms.EntityData</Name>
@@ -1123,6 +1120,10 @@
     <ProjectReference Include="..\Cms.IService\Cms.IService.csproj">
       <Project>{1060BCC7-830A-4FAB-ACA3-C52750BEC9A3}</Project>
       <Name>Cms.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cms.Models\Cms.Models.csproj">
+      <Project>{BA12FEDD-5188-4789-855E-75AA023517F9}</Project>
+      <Name>Cms.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cms.Service\Cms.Service.csproj">
       <Project>{4471EC84-6938-456D-909E-3CCC36AFAFDF}</Project>

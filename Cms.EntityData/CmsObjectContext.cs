@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using Arjen.Auditing;
 using Arjen.Cache;
 using Arjen.Data;
-using Arjen.Data.UnitOfWork;
 using Arjen.IOC;
-using Cms.Data;
+using Cms.Models;
 using InteractivePreGeneratedViews;
 using log4net;
 using System.Linq;
@@ -14,7 +13,7 @@ using System.Linq;
 namespace Cms.EntityData
 {
 
-    public class CmsObjectContext : DbContext, IUnitOfWork, IObjectContext, IAuditableContext
+    public class CmsObjectContext : DbContext, IDbContext, IAuditableContext
     {
         private static readonly ILog QueryLogger = LogManager.GetLogger("QueryLogger");
         private static bool _interactiveViewsSet = false;
@@ -36,10 +35,10 @@ namespace Cms.EntityData
             RelatedObjectsConfiguration = new RelatedObjectsConfiguration();
             CachingSettings = new CachingSettings();
 
-            _entityCache = IOCController.GetInstance<IEntityCache>();
-
+            
             if (IOCController.IsAvailable())
             {
+                _entityCache = IOCController.GetInstance<IEntityCache>();
                 _entityChangeAuditor = IOCController.GetInstance<IEntityChangeAuditor>();
             }
 
@@ -54,13 +53,14 @@ namespace Cms.EntityData
             Database.Log = s => QueryLogger.Debug(s);
         }
 
-        public void Save()
+
+        public override int SaveChanges()
         {
             //AuditChanges();
             FixCachedItems();
             InvalidateCache();
-            SaveChanges();
 
+            return base.SaveChanges();
         }
 
         private void InvalidateCache()
@@ -122,7 +122,7 @@ namespace Cms.EntityData
 
         }
 
-        public IObjectContext GetObjectContext()
+        public Arjen.Data.IDbContext GetObjectContext()
         {
             return this;
         }

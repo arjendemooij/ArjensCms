@@ -12,24 +12,23 @@ namespace Arjen.Data
     /// </summary>
     public class QueryContext : IDisposable
     {
-        private readonly IObjectContext _objectContext;
+        private readonly IDbContext _dbContext;
 
         public QueryContext()
         {            
-            _objectContext = IOCController.GetInstance<IObjectContext>();            
+            _dbContext = IOCController.GetInstance<IDbContext>();            
         }
 
-        public QueryContext Include<T, TProperty>(Expression<Func<T, TProperty>> path) where T : class
+        public QueryContext Include<T>(Expression<Func<T, object>> path) where T : class
         {
-            Func<IQueryable<T>, IQueryable<T>> func = (set) => set.Include(path);
-            _objectContext.RelatedObjectsConfiguration.RegisterInclude(func);
+            _dbContext.RelatedObjectsConfiguration.RegisterInclude(path);
 
             return this;
         }
 
         public QueryContext NoCache()
         {
-            _objectContext.CachingSettings.UseCache = false;
+            _dbContext.CachingSettings.UseCache = false;
 
             return this;
         }
@@ -37,7 +36,7 @@ namespace Arjen.Data
 
         public void Dispose()
         {
-            _objectContext.RelatedObjectsConfiguration.Clear();          
+            _dbContext.RelatedObjectsConfiguration.Clear();          
         }
     }
 

@@ -1,31 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Arjen.Data.UnitOfWork;
+using Arjen.Data;
+using Arjen.Data.Repository;
 using Arjen.IOC;
-using Cms.Data;
-using Cms.Data.IData;
 using Cms.IService;
+using Cms.Models;
 
 namespace Cms.Service
 {
     public class TestService : ITestService
     {
-        private IPageData _pageData;
+        private IRepository<Page> _pageRepository;
         private IAccountService _accountService;
 
-        public TestService(IPageData pageData, IAccountService accountService)
+        public TestService(IRepository<Page> pageRepository, IAccountService accountService)
         {
-            _pageData = pageData;
+            _pageRepository = pageRepository;
             _accountService = accountService;
         }
 
 
+
+
         public void TestAuditing()
         {
-            var testPages = _pageData.GetAllWithName("Test");
+            var testPages = GetAllWithName("Test");
             foreach (var page in testPages)
             {
-                _pageData.Delete(page);
+                _pageRepository.Delete(page);
             }
 
 
@@ -37,12 +40,14 @@ namespace Cms.Service
                     Name = "Test",
                     SeoUrl = "test"
                 };
-            _pageData.Add(testPage);
+            _pageRepository.InsertGraph(testPage);
 
             IOCController.GetInstance<IUnitOfWork>().Save();        
         }
 
-
-
+        private IEnumerable<Page> GetAllWithName(string name)
+        {
+            return _pageRepository.Query().Filter(p => p.Name == name).Get();
+        }
     }
 }

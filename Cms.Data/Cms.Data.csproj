@@ -54,11 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
     <Compile Include="IData\IAccountData.cs" />
     <Compile Include="IData\IData.cs" />
     <Compile Include="IData\IPageData.cs" />
-    <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
