@@ -27,7 +27,50 @@ cmsAdmin.config(function ($stateProvider, $resourceProvider) {
 });
 
 
+
+
+cmsAdmin.directive('displayname', function () {
+
+
+
+    return {
+        scope: {
+            title: "@title"
+        },
+        restrict: 'AE',
+        replace: 'false',
+        template: "<span>" + this.getDisplayname("{{title}}") + "</span>"
+    };
+});
+
+var displayNames;
+function getDisplayname(title) {
+
+    if (!displayNames) {
+
+        displayNames = {
+            "Id": "Index",
+            "Name": "Naam",
+            "Author": "Auteur",
+            "SeoUrl": "Seo Url"
+        };
+    }
+
+
+    console.log(title);
+
+
+    return displayNames[title];
+}
+
+
+
+
 cmsAdmin.directive('pager', function () {
+
+    console.log("test");
+
+
     return {
         restrict: 'E',
         templateUrl: '/content/angular/directives/pager.html',
@@ -38,7 +81,9 @@ cmsAdmin.directive('pager', function () {
                 var doubleStep = step * 2;
                 var start = Math.max(0, $scope.PageNumber - step);
                 var end = start + 1 + doubleStep;
-                if (end > $scope.PageCount) { end = $scope.PageCount; }
+                if (end > $scope.PageCount) {
+                    end = $scope.PageCount;
+                }
 
                 var ret = [];
                 for (var i = start; i != end; ++i) {
@@ -48,5 +93,7 @@ cmsAdmin.directive('pager', function () {
                 return ret;
             };
         }]
-    }
+    };
 });
+
+

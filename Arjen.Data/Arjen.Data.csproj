@@ -59,7 +59,6 @@
     <Compile Include="QueryContext.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
-    <Compile Include="UnitOfWork\IUnitOfWorkFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

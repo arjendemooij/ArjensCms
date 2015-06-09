@@ -38,7 +38,9 @@
 
     reloadData();
 
-
+    $scope.getDisplayname = function(title) {
+        return "title";
+    };
 
     function reloadData() {
 

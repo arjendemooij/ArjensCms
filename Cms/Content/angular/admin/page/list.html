@@ -1,14 +1,12 @@
-﻿n<h2>Pages</h2>
+﻿<h2>Pages</h2>
 
 <table>
     <thead>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Author</th>
-        <th>SEO url</th>
-        <th></th>
-        
-
+        <th>{{getDisplayName("Id")}}</th>
+        <th><displayname title="Name"/></th>
+        <th><displayname title="Author"/></th>
+        <th><displayname title="SeoUrl"></displayname></th>
+        <th></th>        
     </thead>
     <tbody>
         <tr ng-repeat="page in items">

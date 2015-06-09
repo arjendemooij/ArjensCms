@@ -19,7 +19,6 @@ namespace Cms.EntityData
         private static readonly ILog QueryLogger = LogManager.GetLogger("QueryLogger");
         private static bool _interactiveViewsSet = false;
 
-
         public DbSet<Page> Pages { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<EntityChange> EntityChanges { get; set; }

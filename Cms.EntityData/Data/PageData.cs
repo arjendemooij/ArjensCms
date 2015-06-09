@@ -14,8 +14,6 @@ namespace Cms.EntityData.Data
 {
     public class PageData : BaseData<Page>, IPageData
     {
-
-
         protected override IQueryable<Page> AddDefaultIncludes(IQueryable<Page> baseQuery)
         {
             return baseQuery.Include(x => x.Author);

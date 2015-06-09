@@ -43,14 +43,11 @@ namespace Cms
 
         protected void Application_BeginRequest(Object sender, EventArgs e)
         {
-            LogManager.GetLogger("RequestLogger").Debug("START " + Context.Request.RawUrl);
-            IOCController.GetInstance<IUnitOfWorkFactory>().RequireUnitInstance();
+            LogManager.GetLogger("RequestLogger").Debug("START " + Context.Request.RawUrl);            
         }
 
         protected void Application_EndRequest(Object sender, EventArgs e)
-        {
-            IOCController.GetInstance<IUnitOfWorkFactory>().DestroyUnitInstance();
-
+        {            
             LogManager.GetLogger("RequestLogger").Debug("END " + this.Context.Request.RawUrl);
         }
 
