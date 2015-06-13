@@ -7,7 +7,7 @@ namespace Cms.Areas.Admin.Controllers
 {
     public class LoginController : Controller
     {
-        private IAccountService _accountService;
+        private readonly IAccountService _accountService;
 
         public LoginController(IAccountService accountService)
         {
@@ -30,7 +30,7 @@ namespace Cms.Areas.Admin.Controllers
             }
 
             FormsAuthentication.SetAuthCookie(loginModel.UsernameOrEmail, true);
-            return RedirectToAction("List", "Account");
+            return RedirectToAction("Index", "Account");
         }
 
     }
