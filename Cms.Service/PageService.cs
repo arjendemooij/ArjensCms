@@ -55,16 +55,15 @@ namespace Cms.Service
         public PagedList<Page> GetAll(int pageNumber, int pageSize)
         {
             int pageCount;
-            var query = GetBaseQuery().OrderBy(q => q.OrderByDescending(page => page.Id)).GetPage(pageNumber+1, pageSize, out pageCount).ToList();
+            var query = GetBaseQuery().OrderBy(q => q.OrderByDescending(page => page.Id)).GetPage(pageNumber, pageSize, out pageCount).ToList();
 
             var pages = new PagedList<Page>
                 {
                     PageCount = pageCount,
                     PageNumber = pageNumber,
                     PageSize = pageSize,
-                    Data = query.Skip((pageNumber) * pageSize).Take(pageSize).ToList()
+                    Data = query.ToList()
                 };
-
 
             return pages;
         }

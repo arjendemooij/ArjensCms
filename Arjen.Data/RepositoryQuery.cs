@@ -49,11 +49,11 @@ namespace Arjen.Data
         }
 
         public IEnumerable<TEntity> GetPage(
-            int page, int pageSize, out int totalCount)
+            int page, int pageSize, out int pageCount)
         {
             _page = page;
             _pageSize = pageSize;
-            totalCount = _repository.Get(_filter).Count();
+            pageCount = 1 + (_repository.Get(_filter).Count() - 1) / pageSize;
 
             return _repository.Get(
                 _filter,

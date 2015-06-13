@@ -84,7 +84,7 @@ namespace Arjen.Data
 
             if (page != null && pageSize != null)
                 query = query
-                    .Skip((page.Value - 1) * pageSize.Value)
+                    .Skip((page.Value) * pageSize.Value)
                     .Take(pageSize.Value);
 
             return query;
